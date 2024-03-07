@@ -32,9 +32,9 @@ function updateTodolist() {
   tasks.forEach((task, index) => {
     const listItem = document.createElement("li");
 
-    // Vérifie si task.dueDate est une instance de Date avant d'appeler toDateString()
-    const dueDateStr =
-      task.dueDate instanceof Date ? task.dueDate.toDateString() : "N/A";
+    const dueDateStr = task.dueDate
+      ? new Date(task.dueDate).toDateString()
+      : "N/A";
 
     listItem.innerHTML = `
             <strong>${task.title}</strong>
@@ -142,3 +142,42 @@ function saveEditedTask(index) {
   updateTodolist();
   saveTasksToLocalStorage(tasks);
 }
+
+function sortTasks(sortBy) {
+  // Utilisez la méthode Array.sort() pour trier les tâches en fonction du critère choisi
+  tasks.sort((a, b) => {
+    switch (sortBy) {
+      case "title":
+        return a.title.localeCompare(b.title);
+      case "description":
+        return a.description.localeCompare(b.description);
+      case "dueDate":
+        return a.dueDate - b.dueDate;
+      case "priority":
+        const priorityOrder = { "not urgent": 0, normal: 1, urgent: 2 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      default:
+        return 0;
+    }
+  });
+
+  // Mettez à jour l'affichage après le tri
+  updateTodolist();
+  // Mettez également à jour le stockage local avec les tâches triées
+  saveTasksToLocalStorage(tasks);
+}
+
+//Affectation des boutons de tri à la fonctions sortTasks
+const sortByTitleButton = document.getElementById("sortByTitleButton");
+sortByTitleButton.addEventListener("click", () => sortTasks("title"));
+const sorbyDescriptionButton = document.getElementById(
+  "sorbyDescriptionButton"
+);
+sorbyDescriptionButton.addEventListener("click", () =>
+  sortTasks("description")
+);
+const sortByDueDateButton = document.getElementById("sortByDueDateButton");
+sortByDueDateButton.addEventListener("click", () => sortTasks("dueDate"));
+const sortByPriorityButton = document.getElementById("sortByPriorityButton");
+sortByPriorityButton.addEventListener("click", () => sortTasks("priority"));
+updateTodolist();

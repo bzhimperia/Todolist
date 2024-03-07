@@ -1,0 +1,49 @@
+/* FORM */
+#taskForm {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+ul {
+  display: flex;
+  list-style-type: none;
+}
+
+li {
+  border: 1px solid black;
+  margin: 10px;
+  padding: 5px;
+}
+
+button {
+  background-color: rgb(27, 130, 27);
+  color: white;
+  padding: 3px 7px;
+  border-radius: 7px;
+  border: none;
+}
+
+.delete-button {
+  background-color: #970808;
+}
